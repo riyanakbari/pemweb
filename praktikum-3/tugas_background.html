@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Background</title>
+    <style>
+      * {
+        font-family: Helvetica;
+      }
+
+      /*Background Warna*/
+      .background-color {
+        background-color: darkred;
+        color: white;
+        text-align: center;
+        padding: 5px;
+      }
+
+      /*Background Image*/
+      .background-image {
+        background-image: url("assets/telusby.jpg");
+        background-position: center;
+        background-size: cover;
+        text-align: center;
+        height: 600px;
+        width: auto;
+        color: darkred;
+      }
+
+      /*Background Campuran*/
+      .background-campuran {
+        width: 100%;
+        height: 500px;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        background: url("assets/telusby.jpg") center bottom / 700px 400px
+          no-repeat darkred;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background-color">
+      <h2>Background Color</h2>
+      <p>Pada contoh ini, background color menggunakan warna merah gelap</p>
+    </div>
+    <br /><br />
+
+    <div class="background-image">
+      <h2>Background Image</h2>
+      <p>Pada contoh ini, background image menggunakan foto gedung Tel-U SBY</p>
+    </div>
+    <br /><br />
+
+    <div class="background-campuran">
+      <h2>Background Campuran</h2>
+      <p>
+        Pada contoh ini, background campuran menggunakan campuran background
+        image dan warna
+      </p>
+    </div>
+  </body>
+</html>
