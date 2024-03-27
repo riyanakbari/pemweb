@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tugas Praktikum</title>
+    <script src="./assets/js/tugas_praktikum.js" defer></script>
+  </head>
+  <body>
+    <p id="para">Kalimat ini bisa berubah, silahkan klik!</p>
+    <button id="myButton">Click me!</button>
+    <script>
+      let siswa = ["Riyan", "Akbari", "Muhammad", "Rafi"];
+      let tambahan = ["Kucing", "Harimau"];
+      let text;
+
+      text = "Nama Anggota Sebelum Ditambah :";
+      console.log(text);
+      for (let i = 0; i < 4; i++) {
+        console.log(siswa[i]);
+      }
+
+      let indeksTengah = Math.ceil(siswa.length / 2);
+      siswa.splice(indeksTengah, 0, ...tambahan);
+
+      text = "Nama Anggota Sesudah Ditambah :";
+      console.log(text);
+      for (let i = 0; i < siswa.length; i++) {
+        console.log(siswa[i]);
+      }
+    </script>
+  </body>
+</html>
