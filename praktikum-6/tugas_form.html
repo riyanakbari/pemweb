@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Form Registrasi</title>
+    <link href="assets/css/tugas_form_style.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="formKu" name="formKu" method="get" action="proses.php">
+      <div class="title">
+        <h1>Form Registrasi</h1>
+      </div>
+      <label>
+        <input type="text" name="nama" id="nama" placeholder="Nama" />
+        <span id="namaSpan"></span>
+      </label>
+      <label>
+        <input type="text" name="username" id="username" placeholder="Username"/>
+        <span id="usernameSpan"></span>
+      </label>
+      <label>
+        <input type="email" name="email" id="email" placeholder="Email"/>
+        <span id="emailSpan"></span>
+      </label>
+      <label>
+       <input type="password" name="pass" id="pass" placeholder="Password" />
+        <span id="passSpan"></span>
+      </label>
+      <label>
+        <input type="password" name="konfPass" id="konfPass" placeholder="Konfirmasi Password" />
+        <span id="konfPassSpan"></span>
+      </label>
+      <label>
+        <input type="text" name="phone" id="phone" placeholder="No. Telepon"/>
+        <span id="phoneSpan"></span>
+      </label>
+      <label>
+        <div class="selectdiv">
+            <select name="selectJenisKelamin" id="selectJenisKelamin">
+                <option id="jenisKelamin" value="Jenis Kelamin" selected hidden>Jenis Kelamin</option>
+                <option id="jenisKelaminPria" value="Pria">Pria</option>
+                <option id="jenisKelaminWanita" value="Wanita">Wanita</option>
+            </select>
+            <span id="jenisKelaminSpan"></span>
+        </div>  
+      </label>
+      <label>
+        <input type="url" name="website" id="website" placeholder="Alamat Website"/>
+        <span id="websiteSpan"></span>
+      </label>
+      <label>
+        <button type="submit" name="submit" id="submit" >Daftar</button>
+      </label>
+
+      <div id="customAlertBox" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="close">&times;</span>
+            <p id="alertMessage"></p>
+        </div>
+    </div>
+    </form>
+    <script>
+        let formKuNode = document.getElementById("formKu");
+
+        let namaNode = document.getElementById("nama");
+        let namaSpanNode = document.getElementById("namaSpan");
+
+        let usernameNode = document.getElementById("username");
+        let usernameSpanNode = document.getElementById("usernameSpan");
+
+        let passNode = document.getElementById("pass");
+        let passSpanNode = document.getElementById("passSpan");
+
+        let konfPassNode = document.getElementById("konfPass");
+        let konfPassSpanNode = document.getElementById("konfPassSpan");
+
+        let emailNode = document.getElementById("email");
+        let emailSpanNode = document.getElementById("emailSpan");
+
+        let phoneNode = document.getElementById("phone");
+        let phoneSpanNode = document.getElementById("phoneSpan");
+
+        let websiteNode = document.getElementById("website");
+        let websiteSpanNode = document.getElementById("websiteSpan");
+
+        let selectJenisKelaminNode = document.getElementById("selectJenisKelamin");
+        let jenisKelaminPriaNode = document.getElementById("jenisKelaminPria");
+        let jenisKelaminWanitaNode = document.getElementById("jenisKelaminWanita");
+        let jenisKelaminSpanNode = document.getElementById("jenisKelaminSpan");
+        
+        let submitNode = document.getElementById("submit");
+
+        let alertBox = document.getElementById("customAlertBox");
+        let alert_Message_container = document.getElementById("alertMessage");
+        let close_img = document.querySelector(".close");
+
+        const diProses = (e) => {
+            let dataValid = true;
+            //===== Validasi Nama ==== //
+            let namaError = "";
+            if (namaNode.value.trim() === "") {
+                namaError = "Nama harus diisi";
+                dataValid = false;
+            }
+
+            if (namaError !== "") {
+                namaSpanNode.innerHTML = namaError;
+                namaSpanNode.className = "error";
+                namaNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+            //===== Validasi Username ==== //
+            let usernameError = "";
+            if (usernameNode.value.trim() === "") {
+                usernameError = "Username harus diisi";
+                dataValid = false;
+            } else if (/\W/.test(usernameNode.value.trim())) {
+                usernameError = "Hanya bisa diisi karakter alfanumerik";
+                dataValid = false;
+            }
+
+            if (usernameError !== "") {
+                usernameSpanNode.innerHTML = usernameError;
+                usernameSpanNode.className = "error";
+                usernameNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+             //===== Validasi Email ==== //
+             let emailError = "";
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailNode.value.trim() === "") {
+                emailError = "Email harus diisi";
+                dataValid = false;
+            } else if (!emailPattern.test(emailNode.value.trim())) {
+                emailError = "Email tidak valid";
+                dataValid = false;
+            }
+
+            if (emailError !== "") {
+                emailSpanNode.innerHTML = emailError;
+                emailSpanNode.className = "error";
+                emailNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+            //===== Validasi Password ==== //
+            let passError = "";
+            if (passNode.value.trim() === "") {
+                passError = "Password harus diisi";
+                dataValid = false;
+            } else if (passNode.value.trim().length < 6) {
+                passError = "Password minimal 6 karakter";
+                dataValid = false;
+            }
+
+            if (passError !== "") {
+                passSpanNode.innerHTML = passError;
+                passSpanNode.className = "error";
+                passNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+            //===== Validasi Konfirmasi Password ==== //
+            let konfPassError = "";
+            if (konfPassNode.value.trim() === "") {
+                konfPassError = "Konfirmasi Password harus diisi";
+                dataValid = false;
+            } else if (konfPassNode.value.trim().length < 6) {
+                konfPassError = "Konfirmasi Password minimal 6 karakter";
+                dataValid = false;
+            } else if (konfPassNode.value !== passNode.value) {
+                konfPassError = "Konfirmasi Password tidak sesuai dengan Password";
+                dataValid = false;
+            }
+
+            if (konfPassError !== "") {
+                konfPassSpanNode.innerHTML = konfPassError;
+                konfPassSpanNode.className = "error";
+                konfPassNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+            //===== Validasi Nomor Telepon ==== //
+            let phoneError = "";
+            const phonePattern = /^\d+$/;
+            if (phoneNode.value.trim() === "") {
+                phoneError = "Nomor telepon harus diisi";
+                dataValid = false;
+            } else if (!phonePattern.test(phoneNode.value.trim())) {
+                phoneError = "Nomor telepon tidak valid, isi dengan angka";
+                dataValid = false;
+            }
+
+            if (phoneError !== "") {
+                phoneSpanNode.innerHTML = phoneError;
+                phoneSpanNode.className = "error";
+                phoneNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+            //===== Validasi Jenis Kelamin ==== //
+            let jenisKelaminError = "";
+            if (!jenisKelaminPriaNode.selected && !jenisKelaminWanitaNode.selected) {
+                jenisKelaminError = "Jenis kelamin harus dipilih";
+                dataValid = false;
+            }
+
+            if (jenisKelaminError !== "") {
+                jenisKelaminSpanNode.innerHTML = jenisKelaminError;
+                jenisKelaminSpanNode.className = "error";
+                selectJenisKelaminNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+            //===== Validasi Alamat Website ==== //
+            let websiteError = "";
+            const websitePattern = /^(http|https):\/\/[^ "]+$/;
+            if (websiteNode.value.trim() === "") {
+                websiteError = "Alamat website harus diisi";
+                dataValid = false;
+            } else if (!websitePattern.test(websiteNode.value.trim())) {
+                websiteError = "Alamat website tidak valid";
+                dataValid = false;
+            }
+
+            if (websiteError !== "") {
+                websiteSpanNode.innerHTML = websiteError;
+                websiteSpanNode.className = "error";
+                websiteNode.style.border = "2px solid red";
+                e.preventDefault();
+            }
+
+
+            if (dataValid){               
+                alert_Message_container.innerHTML = "Daftar berhasil!";
+                alertBox.style.display = "block";
+
+                close_img.addEventListener('click', function (){
+                    alertBox.style.display = "none";
+                });
+
+                console.log("Data Form :");
+                console.log("Nama :", namaNode.value);
+                console.log("Username :", usernameNode.value);
+                console.log("Email :", emailNode.value);
+                console.log("Password :", passNode.value);
+                console.log("Konfirmasi Password :", konfPassNode.value);
+                console.log("No. Telepon :", phoneNode.value);
+                console.log("Jenis Kelamin :", selectJenisKelaminNode.value);
+                console.log("Alamat Website :", websiteNode.value);
+
+                namaNode.value = "";
+                usernameNode.value = "";
+                emailNode.value = "";
+                passNode.value = "";
+                konfPassNode.value = "";
+                phoneNode.value = "";
+                selectJenisKelaminNode.value = "Jenis Kelamin";
+                websiteNode.value = "";
+            } 
+            e.preventDefault();
+        };
+
+        const hapusError = (event) => {
+            event.target.style.border = "";
+            event.target.parentElement.lastElementChild.innerHTML = "";
+        };
+
+        formKuNode.addEventListener("submit", diProses);
+        namaNode.addEventListener("focus", hapusError);
+        usernameNode.addEventListener("focus", hapusError);
+        passNode.addEventListener("focus", hapusError);
+        konfPassNode.addEventListener("focus", hapusError);
+        emailNode.addEventListener("focus", hapusError);
+        phoneNode.addEventListener("focus", hapusError);
+        selectJenisKelaminNode.addEventListener("focus", hapusError)
+        websiteNode.addEventListener("focus", hapusError);
+    </script>
+</body>
+</html>
